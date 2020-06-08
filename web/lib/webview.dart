@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class MyWebView extends StatelessWidget {
   final String selectedUrl;
@@ -36,11 +36,11 @@ class MyWebView extends StatelessWidget {
 
   Future<void> scan(BuildContext context, String purpos) async {
     print(purpos);
-    String result = await FlutterBarcodeScanner.scanBarcode(
-        "#ff0000", "Cancel", true, ScanMode.DEFAULT);
+    var result = await BarcodeScanner.scan();
 
     await _completer.future.then((controller) {
-      controller.evaluateJavascript("Callback('Scan:"+result+"')");
+      controller
+          .evaluateJavascript("Callback('Scan:" + result.rawContent + "')");
     });
   }
 
