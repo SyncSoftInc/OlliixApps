@@ -1,0 +1,6 @@
+package com.syncsoft.olliix
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
