@@ -1,0 +1,7 @@
+{
+    "Log": {
+        "Level": "debug",
+        "DetailLevel": "warn"
+    },
+    "ListenAddr": ":3002"
+}

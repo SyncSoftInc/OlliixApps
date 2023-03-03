@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <title>Olliix Test</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+</head>
+
+<body style="margin-top: 50px;">
+
+    <h1>Olliix Test</h1>
+
+    <button onclick="Refresh()">Refresh</button>
+    <br />
+    <button onclick="PrintTags()">Print Tags</button>
+    <button onclick="PrintTags('086569808639')">Print Tags With UPC</button>
+    <br />
+    <button onclick="BioAuth()">BioAuth</button>
+    <br />
+    <button onclick="SetSecureStorage()">Set SecureStorage</button>
+    <button onclick="GetSecureStorage()">Get SecureStorage</button>
+
+    <br />
+    <script>
+        const onFileChange = (rs) => {
+            var oFile = document.getElementById('fileSelector').files[0]; //读取文件
+            let txtRS = document.getElementById("result");
+            txtRS.innerText = oFile.name;
+        };
+    </script>
+    <input id="fileSelector" type="file" onchange="onFileChange()" value="" />
+
+    <textarea id="result" style="background-color: bisque; width: 100%; margin: 10px auto 0; height: 400px;"></textarea>
+
+    <script>
+        const native = async (args) => {
+            let r = await window.flutter_inappwebview.callHandler('native', args);
+            let s = JSON.stringify(r);
+            console.log(s);
+        }
+
+        const Refresh = () => {
+            native('Refresh');
+        };
+
+        const PrintTags = (upc) => {
+            if (upc) {
+                native('Print:PriceTag:' + upc);
+            } else {
+                native('Print:PriceTag');
+            }
+        };
+
+        const BioAuth = () => {
+            native('BioAuth');
+        };
+        const BioAuthCallback = (rs) => {
+            let a = document.getElementById("result");
+            a.innerText = JSON.stringify(rs);
+            console.log(rs);
+        };
+
+        const SetSecureStorage = (args) => {
+            native('SecureStorage:set:test_key:123456789');
+        };
+
+        const GetSecureStorage = (args) => {
+            native('SecureStorage:get:test_key');
+        };
+        const SecureStorageCallback = (rs) => {
+            let a = document.getElementById("result");
+            a.innerText = JSON.stringify(rs);
+            console.log(rs);
+        };
+    </script>
+</body>
+
+</html>
