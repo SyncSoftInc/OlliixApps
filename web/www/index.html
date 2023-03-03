@@ -19,6 +19,7 @@
     <br />
     <button onclick="SetSecureStorage()">Set SecureStorage</button>
     <button onclick="GetSecureStorage()">Get SecureStorage</button>
+    <button onclick="Location()">Location</button>
 
     <br />
     <script>
@@ -35,8 +36,10 @@
     <script>
         const native = async (args) => {
             let r = await window.flutter_inappwebview.callHandler('native', args);
-            let s = JSON.stringify(r);
-            console.log(s);
+            let a = document.getElementById("result");
+            a.innerText = JSON.stringify(r);
+            console.log(rs);
+            return r;
         }
 
         const Refresh = () => {
@@ -53,6 +56,9 @@
 
         const BioAuth = () => {
             native('BioAuth');
+        };
+        const Location = () => {
+            native('Location');
         };
         const BioAuthCallback = (rs) => {
             let a = document.getElementById("result");

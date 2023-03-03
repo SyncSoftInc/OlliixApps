@@ -55,5 +55,9 @@
 		<string>Needs your location to determine showroom.</string>
 		<key>NSFaceIDUsageDescription</key>
 		<string>Needs your face id to login.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Needs save photos from the app to your gallery</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Needs access your photo gallery for uploading images to the app</string>
 	</dict>
 </plist>

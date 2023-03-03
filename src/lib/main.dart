@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:olliix/js_result.dart';
 import 'package:f_logs/f_logs.dart';
 
-part 'main.secure_storage.dart';
 part 'main.refresh.dart';
+part 'main.secure_storage.dart';
+part 'main.location.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,20 +71,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   final arrays = args[0].split(":");
 
                   if (arrays.isEmpty) {
-                    r.Error = "args is empty";
+                    r.error = "args is empty";
                     return r;
                   }
 
                   var cmd = arrays[0];
                   switch (cmd) {
                     case "Refresh":
-                      r = await refresh(_webViewController);
+                      r = await refreshHandler(_webViewController);
                       break;
                     case "SecureStorage":
                       r = await secureStorageHandler(arrays);
                       break;
+                    case "Location":
+                      r = await locationHandler(arrays);
+                      break;
                     default:
-                      r = JSResult()..Error = "native command '$cmd' is not supported";
+                      r = JSResult()..error = "native command '$cmd' is not supported";
                   }
 
                   return r;

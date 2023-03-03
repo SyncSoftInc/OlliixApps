@@ -5,7 +5,7 @@ const _storage = FlutterSecureStorage();
 Future<JSResult> secureStorageHandler(List<String> args) async {
   final result = JSResult();
   if (args.length < 3) {
-    result.Error = "Invalid args";
+    result.error = "Invalid args";
     return result;
   }
 
@@ -15,10 +15,10 @@ Future<JSResult> secureStorageHandler(List<String> args) async {
     final key = args[2];
 
     try {
-      result.Value = await _storage.read(key: key) ?? "";
-      result.Success = true;
+      result.value = await _storage.read(key: key) ?? "";
+      result.success = true;
     } catch (e) {
-      result.Error = e.toString();
+      result.error = e.toString();
       FLog.error(text: e.toString());
     }
   } else if (cmd == "set" && args.length > 2) {
@@ -27,10 +27,10 @@ Future<JSResult> secureStorageHandler(List<String> args) async {
 
     try {
       await _storage.write(key: key, value: value);
-      result.Value = value;
-      result.Success = true;
+      result.value = value;
+      result.success = true;
     } catch (e) {
-      result.Error = e.toString();
+      result.error = e.toString();
       FLog.error(text: e.toString());
     }
   }

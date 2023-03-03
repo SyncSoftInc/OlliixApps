@@ -1,14 +1,14 @@
 part of 'main.dart';
 
-Future<JSResult> refresh(InAppWebViewController? controller) async {
+Future<JSResult> refreshHandler(InAppWebViewController? controller) async {
   final result = JSResult();
 
   try {
     await controller?.reload();
-    result.Success = true;
+    result.success = true;
   } catch (err) {
-    result.Error = err.toString();
-    FLog.error(text: result.Error);
+    result.error = err.toString();
+    FLog.error(text: result.error);
   }
 
   return result;
